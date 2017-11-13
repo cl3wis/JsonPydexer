@@ -1,0 +1,45 @@
+ {
+    "_id": "5a0a02399416569dc1f3fedd",
+    "index": 4,
+    "guid": "c11c222d-0f07-4984-b240-a0a4e22ddcf8",
+    "isActive": false,
+    "balance": "$1,431.84",
+    "picture": "http://placehold.it/32x32",
+    "age": 30,
+    "eyeColor": "green",
+    "name": "Kirk Harrington",
+    "gender": "male",
+    "company": "SENMAO",
+    "email": "kirkharrington@senmao.com",
+    "phone": "+1 (886) 496-3748",
+    "address": "390 Vanderveer Street, Logan, Idaho, 6618",
+    "about": "Magna est fugiat magna eiusmod ex et irure aliqua ut id consequat incididunt nostrud. Eiusmod pariatur quis nostrud duis. Laboris magna ex et consequat do laborum quis laboris aliquip in duis. Incididunt ipsum officia in ad ut irure commodo do. Ut excepteur occaecat nisi quis dolore velit ut quis nulla esse magna amet adipisicing. Est mollit enim nostrud dolore in do incididunt proident duis. Tempor ullamco Lorem anim occaecat labore eu sint irure enim elit cupidatat magna veniam.\r\n",
+    "registered": "2015-08-03T12:28:47 +05:00",
+    "latitude": 55.672293,
+    "longitude": -85.359637,
+    "tags": [
+      "aliqua",
+      "enim",
+      "occaecat",
+      "nostrud",
+      "ex",
+      "reprehenderit",
+      "ad"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Bridges Le"
+      },
+      {
+        "id": 1,
+        "name": "Pratt Calhoun"
+      },
+      {
+        "id": 2,
+        "name": "Billie Molina"
+      }
+    ],
+    "greeting": "Hello, Kirk Harrington! You have 7 unread messages.",
+    "favoriteFruit": "apple"
+  }

@@ -1,0 +1,45 @@
+{
+    "_id": "5a0a0239a78b6240acaebdb5",
+    "index": 3,
+    "guid": "a1b422cb-e54b-4359-aa4f-3b486ce858a0",
+    "isActive": true,
+    "balance": "$3,702.12",
+    "picture": "http://placehold.it/32x32",
+    "age": 37,
+    "eyeColor": "brown",
+    "name": "Bishop Marks",
+    "gender": "male",
+    "company": "GEEKFARM",
+    "email": "bishopmarks@geekfarm.com",
+    "phone": "+1 (826) 431-3489",
+    "address": "640 Lincoln Terrace, Ruckersville, Wisconsin, 4744",
+    "about": "Fugiat id deserunt cupidatat mollit nisi est culpa reprehenderit qui nulla minim aliqua qui. Dolor ut ad elit proident sint nisi aute. Reprehenderit quis cillum excepteur commodo pariatur non ex consequat fugiat. Duis pariatur est ut labore labore culpa velit consectetur ex consectetur nisi. Aute est non culpa nostrud. Duis mollit in mollit ullamco nostrud occaecat est sunt pariatur. In consectetur ex dolor eu quis aliquip.\r\n",
+    "registered": "2016-10-14T02:52:49 +05:00",
+    "latitude": -45.266829,
+    "longitude": 56.072447,
+    "tags": [
+      "ea",
+      "amet",
+      "occaecat",
+      "sit",
+      "cillum",
+      "deserunt",
+      "elit"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Pierce Mcclain"
+      },
+      {
+        "id": 1,
+        "name": "Bernice Kline"
+      },
+      {
+        "id": 2,
+        "name": "Claudette Crosby"
+      }
+    ],
+    "greeting": "Hello, Bishop Marks! You have 9 unread messages.",
+    "favoriteFruit": "apple"
+  }
