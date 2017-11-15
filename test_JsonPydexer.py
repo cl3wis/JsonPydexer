@@ -1,5 +1,5 @@
 import unittest
-import shutil, tempfile
+import pickle
 from os import path
 from JsonPydexer import JsonPydexer
 
@@ -28,11 +28,16 @@ class PydexerIndex(unittest.TestCase):
     def test_index_no_filename(self):
         jp = JsonPydexer(self.good_dir)
         jp.index("_id")
-        with open("_id.pickle") as f:
+        with open("_id.pickle", "rb") as f:
             index = pickle.load(f)
-            #TODO assert for proper values here, not isnotnone
-            self.assertIsNotNone(index)
-
+            expectedDict = {
+                "5a0a0239b4b70140c8827119": "1.json",
+                "5a0a023902ee870ad28cd939": "2.json",
+                "5a0a0239ef483b81585699c5": "3.json",
+                "5a0a0239a78b6240acaebdb5": "4.json",
+                "5a0a02399416569dc1f3fedd": "5.json"
+            }
+            self.assertEqual(index, expectedDict)
 
     def test_index_filename(self):
         pass
