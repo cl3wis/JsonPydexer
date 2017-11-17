@@ -1,11 +1,17 @@
 import unittest
 import pickle
-from os import path
+import os
 from JsonPydexer import JsonPydexer
 
 class PydexerConstructor(unittest.TestCase):
     good_dir = "test_data/1"
     not_dir = "test_data/file.txt"
+    bad_perms = "test_data/bad_perms"
+
+    def setUp(self):
+        if not os.path.exists(self.bad_perms):
+            os.makedirs(self.bad_perms, mode=0o000)
+
 
     def test_constructor(self):
         jp = JsonPydexer(self.good_dir)
@@ -13,13 +19,17 @@ class PydexerConstructor(unittest.TestCase):
 
 
     def test_constructor_no_perms(self):
-        """TODO: target for a future version"""
-        pass
+        with self.assertRaises(ValueError):
+            jp = JsonPydexer(self.bad_perms)
 
 
     def test_constructor_not_dir(self):
         with self.assertRaises(ValueError):
             jp = JsonPydexer(self.not_dir)
+
+
+    def tearDown(self):
+        os.rmdir(self.bad_perms)
 
 
 class PydexerIndex(unittest.TestCase):

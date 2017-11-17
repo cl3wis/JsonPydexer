@@ -24,8 +24,8 @@ class JsonPydexer:
         if (stat.S_ISDIR(os.stat(self.rootPath).st_mode) == 0):
             print("Error: {} is not reported as a directory.".format(self.rootPath), file=sys.stderr)
             raise ValueError("A non-directory file was passed")
-        else:
-            pass
+        elif not (os.access(self.rootPath, os.W_OK)):
+            raise ValueError("Specified directory is not writable")
 
     def index(self, key, r=False, filename=None):
         """Index .json files in the root path. Pickles the index as a dict, with
