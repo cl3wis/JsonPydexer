@@ -41,6 +41,7 @@ class PydexerIndex(unittest.TestCase):
         jp.index("_id")
         with open("_id.pickle", "rb") as f:
             index = pickle.load(f)
+            os.remove("_id.pickle")
             expectedDict = {
                 "5a0a0239b4b70140c8827119": "1.json",
                 "5a0a023902ee870ad28cd939": "2.json",
@@ -49,23 +50,22 @@ class PydexerIndex(unittest.TestCase):
                 "5a0a02399416569dc1f3fedd": "5.json"
             }
             self.assertEqual(index, expectedDict)
-        os.remove("_id.pickle")
 
 
     def test_index_recursive(self):
         jp = JsonPydexer(self.recursive_dir)
-        jp.index("_id")
+        jp.index("_id", r=True)
         with open("_id.pickle", "rb") as f:
             index = pickle.load(f)
+            os.remove("_id.pickle")
             expectedDict = {
                 "5a0a0239b4b70140c8827119": "a/1.json",
                 "5a0a023902ee870ad28cd939": "a/2.json",
                 "5a0a0239ef483b81585699c5": "a/aa/3.json",
                 "5a0a0239a78b6240acaebdb5": "b/4.json",
-                "5a0a02399416569dc1f3fedd": "5.json"
+                "5a0a02399416569dc1f3fedd": "./5.json"
             }
             self.assertEqual(index, expectedDict)
-        os.remove("_id.pickle")
 
 if __name__ == '__main__':
     unittest.main()
