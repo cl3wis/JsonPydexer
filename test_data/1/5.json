@@ -1,7 +1,9 @@
  {
     "_id": "5a0a02399416569dc1f3fedd",
     "index": 4,
-    "guid": "c11c222d-0f07-4984-b240-a0a4e22ddcf8",
+    "foo": {
+        "guid": "c11c222d-0f07-4984-b240-a0a4e22ddcf8"
+    },
     "isActive": false,
     "balance": "$1,431.84",
     "picture": "http://placehold.it/32x32",
