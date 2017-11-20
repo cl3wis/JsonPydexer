@@ -1,0 +1,47 @@
+
+{
+    "_id": "5a0a023902ee870ad28cd939",
+    "index": 1,
+    "guid": "4d7c74f3-0cb8-4287-a7da-2b124f325dea",
+    "isActive": true,
+    "balance": "$3,998.70",
+    "picture": "http://placehold.it/32x32",
+    "age": 35,
+    "eyeColor": "brown",
+    "name": "Burnett Morrow",
+    "gender": "male",
+    "company": "HINWAY",
+    "email": "burnettmorrow@hinway.com",
+    "phone": "+1 (993) 527-3920",
+    "address": "781 Prince Street, Rosine, Illinois, 426",
+    "about": "Non nostrud cupidatat labore magna sit irure officia. Enim id velit Lorem excepteur in sint voluptate adipisicing consequat ad in nostrud. Incididunt officia reprehenderit tempor eiusmod elit est ut esse nulla sit do sunt culpa. Aute ex fugiat fugiat Lorem minim aliquip tempor dolor fugiat ex. Proident ipsum cupidatat est et cupidatat veniam nulla voluptate consectetur.\r\n",
+    "registered": "2017-07-08T02:17:03 +05:00",
+    "latitude": 9.507246,
+    "longitude": 128.961985,
+    "tags": [
+      "anim",
+      "enim",
+      "do",
+      "ea",
+      "adipisicing",
+      "labore",
+      "consequat"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Reva Morgan"
+      },
+      {
+        "id": 1,
+        "name": "Marsh Barr"
+      },
+      {
+        "id": 2,
+        "name": "Velma Gibbs"
+      }
+    ],
+    "greeting": "Hello, Burnett Morrow! You have 9 unread messages.",
+    "favoriteFruit": "banana"
+  }
+

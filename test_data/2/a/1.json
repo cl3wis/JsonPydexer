@@ -1,0 +1,45 @@
+{
+    "_id": "5a0a0239b4b70140c8827119",
+    "index": 0,
+    "guid": "9d634636-c7a3-48d1-9ec7-5fc91e50aaf4",
+    "isActive": true,
+    "balance": "$1,138.65",
+    "picture": "http://placehold.it/32x32",
+    "age": 35,
+    "eyeColor": "blue",
+    "name": "Lorene Miranda",
+    "gender": "female",
+    "company": "BUZZWORKS",
+    "email": "lorenemiranda@buzzworks.com",
+    "phone": "+1 (904) 524-2780",
+    "address": "865 Bragg Court, Shasta, Guam, 9909",
+    "about": "Anim ea reprehenderit eu ad. Anim ullamco consequat consectetur ut aute laboris quis exercitation id. Non officia minim officia nostrud culpa ut irure eu in eiusmod exercitation reprehenderit enim adipisicing. Do enim ex exercitation incididunt quis elit id quis nisi. Voluptate non ullamco nisi voluptate reprehenderit ea. Quis ea nostrud proident duis. Pariatur culpa culpa magna consequat ex consequat cillum consequat consequat tempor.\r\n",
+    "registered": "2015-07-16T05:21:50 +05:00",
+    "latitude": -1.369377,
+    "longitude": -175.755784,
+    "tags": [
+      "velit",
+      "et",
+      "sit",
+      "enim",
+      "ipsum",
+      "laborum",
+      "dolore"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Brittany Nash"
+      },
+      {
+        "id": 1,
+        "name": "Bush Burt"
+      },
+      {
+        "id": 2,
+        "name": "Sherry Wise"
+      }
+    ],
+    "greeting": "Hello, Lorene Miranda! You have 2 unread messages.",
+    "favoriteFruit": "banana"
+  }
