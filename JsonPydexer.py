@@ -1,11 +1,13 @@
 __author__ = "Christian Bailey (me@christianbailey.me)"
-__version__ = "0.0.1"
+__version__ = "0.2.0"
 
 import os
 import json
 import pickle
 import sys
 import stat
+from functools import reduce
+from operator import getitem
 
 class JsonPydexer:
     """Base class for doing things"""
@@ -41,19 +43,36 @@ class JsonPydexer:
             is str(key) + ".pickle"
         Returns: None
         """
-        #TODO implement list of keys instead of surface level only 
+        if type(key) is str:
+            key = [key]
+
         if filename is None:
-            filename = ''.join([key, ".pickle"])
+            filename = ''.join(key + [".pickle"])
         #TODO check if filename already exists, 
 
         index = dict()
-        for root, subFolders, files in os.walk(self.rootPath):
-            for file in files:
-                name, extension = os.path.splitext(file)
-                if extension == ".json":
-                    with open(root + "/" + file) as f:
-                        j = json.load(f)
-                        index[j[key]] = file
+        if r:
+            for root, subFolders, files in os.walk(self.rootPath):
+                for file in files:
+                    name, extension = os.path.splitext(file)
+                    if extension == ".json":
+                        with open(root + "/" + file) as f:
+                            j = json.load(f)
+                            file_key = reduce(getitem, key, j)
+                            index[file_key] = os.path.join(
+                                os.path.relpath(root, start=self.rootPath), file
+                            )
+
+        else:
+            for root, subFolders, files in os.walk(self.rootPath):
+                for file in files:
+                    name, extension = os.path.splitext(file)
+                    if extension == ".json":
+                        with open(root + "/" + file) as f:
+                            j = json.load(f)
+                            file_key = reduce(getitem, key, j)
+                            index[file_key] = file
+
         with open(filename, mode="wb") as f:
             pickle.dump(index, f)
 
