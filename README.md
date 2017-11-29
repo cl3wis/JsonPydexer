@@ -11,6 +11,6 @@ jp = JsonPydexer("test_data/1")
 #index on the given key, creating the file _id.pickle, containing a pickled dict of _id: filename
 jp.index("_id")
 
-#index on the given key list, creating the file fooguid.pickle
+#index on the given list of nested keys ie {"foo": {"guid": value}}, creating the file fooguid.pickle
 jp.index(["foo", "guid"])
 ```
