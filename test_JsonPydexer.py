@@ -67,6 +67,23 @@ class PydexerIndex(unittest.TestCase):
             }
             self.assertEqual(index, expectedDict)
 
+
+    def test_nested_ket(self):
+        jp = JsonPydexer(self.good_dir)
+        jp.index(["foo", "guid"])
+        with open("fooguid.pickle", "rb") as f:
+            index = pickle.load(f)
+            os.remove("fooguid.pickle")
+            expectedDict = {
+                "9d634636-c7a3-48d1-9ec7-5fc91e50aaf4": "1.json",
+                "4d7c74f3-0cb8-4287-a7da-2b124f325dea": "2.json",
+                "fa75756f-8fbd-4848-9d2f-5ee9df0f149f": "3.json",
+                "a1b422cb-e54b-4359-aa4f-3b486ce858a0": "4.json",
+                "c11c222d-0f07-4984-b240-a0a4e22ddcf8": "5.json"
+            }
+            self.assertEqual(index, expectedDict)
+
+
 if __name__ == '__main__':
     unittest.main()
 
