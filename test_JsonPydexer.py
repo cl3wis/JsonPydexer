@@ -68,7 +68,7 @@ class PydexerIndex(unittest.TestCase):
             self.assertEqual(index, expectedDict)
 
 
-    def test_nested_ket(self):
+    def test_index_nested_key(self):
         jp = JsonPydexer(self.good_dir)
         jp.index(["foo", "guid"])
         with open("fooguid.pickle", "rb") as f:

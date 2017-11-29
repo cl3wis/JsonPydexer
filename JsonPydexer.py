@@ -6,6 +6,8 @@ import json
 import pickle
 import sys
 import stat
+from functools import reduce
+from operator import getitem
 
 class JsonPydexer:
     """Base class for doing things"""
@@ -41,9 +43,11 @@ class JsonPydexer:
             is str(key) + ".pickle"
         Returns: None
         """
-        #TODO implement list of keys instead of surface level only 
+        if type(key) is str:
+            key = [key]
+
         if filename is None:
-            filename = ''.join([key, ".pickle"])
+            filename = ''.join(key + [".pickle"])
         #TODO check if filename already exists, 
 
         index = dict()
@@ -54,7 +58,8 @@ class JsonPydexer:
                     if extension == ".json":
                         with open(root + "/" + file) as f:
                             j = json.load(f)
-                            index[j[key]] = os.path.join(
+                            file_key = reduce(getitem, key, j)
+                            index[file_key] = os.path.join(
                                 os.path.relpath(root, start=self.rootPath), file
                             )
 
@@ -65,7 +70,8 @@ class JsonPydexer:
                     if extension == ".json":
                         with open(root + "/" + file) as f:
                             j = json.load(f)
-                            index[j[key]] = file
+                            file_key = reduce(getitem, key, j)
+                            index[file_key] = file
 
         with open(filename, mode="wb") as f:
             pickle.dump(index, f)
