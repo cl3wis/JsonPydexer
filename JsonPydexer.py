@@ -48,7 +48,9 @@ class JsonPydexer:
 
         if filename is None:
             filename = ''.join(key + [".pickle"])
-        #TODO check if filename already exists, 
+
+        if os.path.isfile(filename):
+            raise ValueError("index file alreay exists")
 
         index = dict()
         if r:
@@ -58,10 +60,13 @@ class JsonPydexer:
                     if extension == ".json":
                         with open(root + "/" + file) as f:
                             j = json.load(f)
-                            file_key = reduce(getitem, key, j)
-                            index[file_key] = os.path.join(
-                                os.path.relpath(root, start=self.rootPath), file
-                            )
+                            try:
+                                file_key = reduce(getitem, key, j)
+                                index[file_key] = os.path.join(
+                                    os.path.relpath(root, start=self.rootPath), file
+                                )
+                            except KeyError:
+                                continue
 
         else:
             for root, subFolders, files in os.walk(self.rootPath):
@@ -70,8 +75,11 @@ class JsonPydexer:
                     if extension == ".json":
                         with open(root + "/" + file) as f:
                             j = json.load(f)
-                            file_key = reduce(getitem, key, j)
-                            index[file_key] = file
+                            try:
+                                file_key = reduce(getitem, key, j)
+                                index[file_key] = file
+                            except KeyError:
+                                continue
 
         with open(filename, mode="wb") as f:
             pickle.dump(index, f)

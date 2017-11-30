@@ -52,6 +52,14 @@ class PydexerIndex(unittest.TestCase):
             self.assertEqual(index, expectedDict)
 
 
+    def test_index_filename_exists(self):
+        jp = JsonPydexer(self.good_dir)
+        jp.index("_id")
+        with self.assertRaises(ValueError):
+            jp.index("_id")
+        os.remove("_id.pickle")
+
+
     def test_index_recursive(self):
         jp = JsonPydexer(self.recursive_dir)
         jp.index("_id", r=True)
