@@ -11,7 +11,7 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
 
 setup(
     name="JsonPydexer",
-    version="0.2.1",
+    version="0.2.2",
     description="A (python) indexer for large collections of json files",
     long_description=long_desc,
     url="http://github.com/cl3wis/JsonPydexer",
