@@ -48,7 +48,9 @@ class JsonPydexer:
 
         if filename is None:
             filename = ''.join(key + [".pickle"])
-        #TODO check if filename already exists, 
+
+        if os.path.isfile(filename):
+            raise ValueError("index file alreay exists")
 
         index = dict()
         if r:
