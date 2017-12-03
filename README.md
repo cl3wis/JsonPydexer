@@ -1,6 +1,6 @@
 # JsonPydexer
 A (python) indexer for large collections of json files.
-In development and probably not good for general use yet. 
+In development and probably not good for general use yet.
 ## Usage
 ```python
 from JsonPydexer import JsonPydexer
