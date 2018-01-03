@@ -24,7 +24,6 @@ class JsonPydexer:
 
         # check that path is actually a directory
         if (stat.S_ISDIR(os.stat(self.rootPath).st_mode) == 0):
-            print("Error: {} is not reported as a directory.".format(self.rootPath), file=sys.stderr)
             raise ValueError("A non-directory file was passed")
         elif not (os.access(self.rootPath, os.W_OK)):
             raise ValueError("Specified directory is not writable")
