@@ -123,6 +123,39 @@ class PydexerIndex(unittest.TestCase):
             self.assertEqual(index.files.keys(), expectedDict["files"].keys())
 
 
+    def test_update_keys(self):
+        jp = JsonPydexer(self.good_dir)
+        jp.index([["foo", "guid"]])
+        expectedDict = {
+            ("foo", "guid"): {
+                "9d634636-c7a3-48d1-9ec7-5fc91e50aaf4": "1.json",
+                "4d7c74f3-0cb8-4287-a7da-2b124f325dea": "2.json",
+                "fa75756f-8fbd-4848-9d2f-5ee9df0f149f": "3.json",
+                "a1b422cb-e54b-4359-aa4f-3b486ce858a0": "4.json",
+                "c11c222d-0f07-4984-b240-a0a4e22ddcf8": "5.json"
+                }
+            }
+        with open(".jp.pkl", "rb") as f:
+            index = pickle.load(f)
+            self.assertEqual(index.unique_indices, expectedDict)
+
+        del jp
+        jp = JsonPydexer(self.good_dir)
+        jp.index([["foo", "guid"], "_id"])
+        expectedDict[("_id",)] = {
+            "5a0a0239b4b70140c8827119": "1.json",
+            "5a0a023902ee870ad28cd939": "2.json",
+            "5a0a0239ef483b81585699c5": "3.json",
+            "5a0a0239a78b6240acaebdb5": "4.json",
+            "5a0a02399416569dc1f3fedd": "5.json"
+        }
+        with open(".jp.pkl", "rb") as f:
+            index = pickle.load(f)
+            self.assertEqual(index.unique_indices, expectedDict)
+            os.remove(".jp.pkl")
+
+
+
 if __name__ == '__main__':
     unittest.main()
 

@@ -12,6 +12,14 @@ class Index:
         self.rootPath = rootPath
 
 
+    def add_key_names(self, key_names):
+        # make a set from unique_indices keynames and group_indices keynames
+        existing_key_names = set([k for k in chain(self.unique_indices, self.group_indices)])
+        new_key_names = set(key_names) - existing_key_names
+        for k in new_key_names:
+            self.unique_indices[k] = dict()
+
+
     def add(self, filename):
         with open(str(Path(self.rootPath, filename)), "r") as f:
             f = json.load(f)

@@ -50,13 +50,18 @@ class JsonPydexer:
 
         if os.path.isfile(os.path.join(self.rootPath, ".jp.pkl")):
             # we will use update methods
-            index = self.load()
+            self.index = self.load()
+            self.index.add_key_names(keys)
+            self.update()
         else:
             # we will use create methods
-            index = Index(keys, self.rootPath)
+            self.index = Index(keys, self.rootPath)
+            self.update()
 
+
+    def update(self):
         # load filenames in I as set_I
-        set_I = set(index.files)
+        set_I = set(self.index.files)
 
         # load filenames in rootpath as set_F
         p = Path(self.rootPath)
@@ -66,7 +71,7 @@ class JsonPydexer:
         # remove zombies (remove set(set_I - set_F) from index and set_I
         zombies = set_I - set_F
         for zombie in zombies:
-            index.remove(zombie)
+            self.index.remove(zombie)
             set_I.remove(zombie)
 
         #TODO update modified files
@@ -78,8 +83,17 @@ class JsonPydexer:
         # add new files from set_F (eg set_F - set_I) to I
         newfiles = set_F - set_I
         for newfile in newfiles:
-            index.add(newfile)
+            self.index.add(newfile)
 
         with open(".jp.pkl", mode="wb") as f:
-            pickle.dump(index, f)
+            pickle.dump(self.index, f)
+
+
+    def load(self):
+        path = Path(self.rootPath, ".jp.pkl")
+        if path.is_file():
+            with open(str(path), "rb") as f:
+                self.index = pickle.load(f)
+        else:
+            raise ValueError("Something went wrong! We can't open the index file")
 
