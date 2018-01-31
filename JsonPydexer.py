@@ -30,6 +30,7 @@ class JsonPydexer:
             raise ValueError("A non-directory file was passed")
         elif not (os.access(self.rootPath, os.W_OK)):
             raise ValueError("Specified directory is not writable")
+        self.index_obj = self.load()
 
 
     def index(self, keys, r=True):
@@ -46,22 +47,28 @@ class JsonPydexer:
         """
         if type(keys) is str:
             raise ValueError("keys argument must be a list of strings or iterables yielding strings")
-        keys = [tuple([key]) if type(key) is str else tuple(key) for key in keys]
+        keys = [self.key_name_to_tuple(key) for key in keys]
 
-        if os.path.isfile(os.path.join(self.rootPath, ".jp.pkl")):
+        if self.index_obj:
             # we will use update methods
-            self.index = self.load()
-            self.index.add_key_names(keys)
+            self.index_obj.add_key_names(keys)
             self.update()
         else:
             # we will use create methods
-            self.index = Index(keys, self.rootPath)
+            self.index_obj = Index(keys, self.rootPath)
             self.update()
+
+
+    def key_name_to_tuple(self, key_name):
+        if type(key_name) is str:
+            return tuple([key_name])
+        elif type(key_name) is list:
+            return tuple(key_name)
 
 
     def update(self):
         # load filenames in I as set_I
-        set_I = set(self.index.files)
+        set_I = set(self.index_obj.files)
 
         # load filenames in rootpath as set_F
         p = Path(self.rootPath)
@@ -71,10 +78,10 @@ class JsonPydexer:
         # remove zombies (remove set(set_I - set_F) from index and set_I
         zombies = set_I - set_F
         for zombie in zombies:
-            self.index.remove(zombie)
+            self.index_obj.remove(zombie)
             set_I.remove(zombie)
 
-        #TODO update modified files
+        #TODO issue #24 update modified files
         # for i in set_I
             # if (index -> files -> I -> timestamp) < (rootpath -> I -> timestamp)
                 # index.update(I)
@@ -83,17 +90,33 @@ class JsonPydexer:
         # add new files from set_F (eg set_F - set_I) to I
         newfiles = set_F - set_I
         for newfile in newfiles:
-            self.index.add(newfile)
+            self.index_obj.add(newfile)
 
         with open(".jp.pkl", mode="wb") as f:
-            pickle.dump(self.index, f)
+            pickle.dump(self.index_obj, f)
 
 
     def load(self):
         path = Path(self.rootPath, ".jp.pkl")
         if path.is_file():
             with open(str(path), "rb") as f:
-                self.index = pickle.load(f)
+                return pickle.load(f)
         else:
-            raise ValueError("Something went wrong! We can't open the index file")
+            return False
+
+
+    def get_file(self, key_name, needle):
+        key_name = self.key_name_to_tuple(key_name)
+        if key_name in self.index_obj.unique_indices:
+            return self.index_obj.unique_indices[key_name].get(needle, False)
+        else:
+            return ValueError("Error: Invalid Key. Check in group_indices")
+
+    def get_files(self, key_name, needle):
+        key_name = self.key_name_to_tuple(key_name)
+        if key_name in self.index_obj.group_indices:
+            for filename in self.index_obj.group_indices[key_name].get(needle, []):
+                yield filename
+        else:
+            return ValueError("Error: Invalid Key. Check in unique_indices")
 
