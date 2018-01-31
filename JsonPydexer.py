@@ -1,6 +1,5 @@
 __author__ = "Christian Bailey (me@christianbailey.me)"
-# TODO update version
-__version__ = "x.x.x"
+__version__ = "0.3.0"
 
 import os
 import json
