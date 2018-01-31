@@ -130,7 +130,7 @@ class JsonPydexer:
         if key_name in self.index_obj.unique_indices:
             return self.index_obj.unique_indices[key_name].get(needle, False)
         else:
-            return ValueError("Error: Invalid Key. Check in group_indices")
+            raise ValueError("Error: Invalid Key. Check in group_indices")
 
     def get_files(self, key_name, needle):
         """Get the files with a non-unique index matching the needle:
@@ -144,5 +144,5 @@ class JsonPydexer:
             for filename in self.index_obj.group_indices[key_name].get(needle, []):
                 yield filename
         else:
-            return ValueError("Error: Invalid Key. Check in unique_indices")
+            raise ValueError("Error: Invalid Key. Check in unique_indices")
 
