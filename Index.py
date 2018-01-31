@@ -6,6 +6,11 @@ from pathlib import Path
 
 class Index:
     def __init__(self, key_names, rootPath, filename=None):
+        """
+        Args:
+            key_names (list): a list of key_name tuples
+            rootPath (string): the root path
+        """
         self.files = dict()
         self.unique_indices = { key_name: {} for key_name in key_names }
         self.group_indices = dict()
@@ -13,6 +18,10 @@ class Index:
 
 
     def add_key_names(self, key_names):
+        """Add new key_names to the index
+        Args:
+            key_names (list): a list of key_name tuples
+        """
         # make a set from unique_indices keynames and group_indices keynames
         existing_key_names = set([k for k in chain(self.unique_indices, self.group_indices)])
         new_key_names = set(key_names) - existing_key_names
@@ -21,6 +30,10 @@ class Index:
 
 
     def add(self, filename):
+        """add a new file to the index
+        Args:
+            filename (string): filename to add
+        """
         with open(str(Path(self.rootPath, filename)), "r") as f:
             f = json.load(f)
 
@@ -57,6 +70,10 @@ class Index:
 
 
     def move_unique_to_group(self, key_name):
+        """copy a unique_indices key_name over to group_indices
+        Args:
+            key_name (tuple): key_name to copy
+        """
         # create the new key_name in group_indices
         self.group_indices[key_name] = dict()
 

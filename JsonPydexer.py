@@ -34,19 +34,19 @@ class JsonPydexer:
 
 
     def index(self, keys, r=True):
-        """Index .json files in the root path. Pickles the index as a dict, with
-        whichever key you specify as the key and relative filenames as values to
-        save on storage space.
+        """Index .json files in the root path. Pickles the Index object which can
+        be loaded later.
 
         Args:
-            key (list): list of keys. each element of the list is one level of a
-            nested key
+            keys (list): list of keys. each element can be a string, in the case of
+            a key field at the root level of the json document, or a list of strings,
+            in the case of a key field that is nested within other fields
             r (bool, optional): recurse into lower directories or not. not yet
             implemented
         Returns: None
         """
         if type(keys) is str:
-            raise ValueError("keys argument must be a list of strings or iterables yielding strings")
+            raise ValueError("keys argument must be a list of strings or lists")
         keys = [self.key_name_to_tuple(key) for key in keys]
 
         if self.index_obj:
@@ -60,6 +60,12 @@ class JsonPydexer:
 
 
     def key_name_to_tuple(self, key_name):
+        """Convert a key_name, either as list or string, into a tuple for hashing
+
+        Args:
+            key_name: either a string or list of strings.
+        Returns: Tuple
+        """
         if type(key_name) is str:
             return tuple([key_name])
         elif type(key_name) is list:
@@ -67,6 +73,9 @@ class JsonPydexer:
 
 
     def update(self):
+        """Remove deleted files from the Index, add new files to the Index. Removing
+        deleted files has not been tested.
+        """
         # load filenames in I as set_I
         set_I = set(self.index_obj.files)
 
@@ -76,6 +85,7 @@ class JsonPydexer:
         set_F = set([str(f.relative_to(self.rootPath)) for f in files])
 
         # remove zombies (remove set(set_I - set_F) from index and set_I
+        #TODO write a test for htis
         zombies = set_I - set_F
         for zombie in zombies:
             self.index_obj.remove(zombie)
@@ -97,6 +107,9 @@ class JsonPydexer:
 
 
     def load(self):
+        """Try to open the Index object pickled at rootpath
+        Returns: Index or False
+        """
         path = Path(self.rootPath, ".jp.pkl")
         if path.is_file():
             with open(str(path), "rb") as f:
@@ -106,6 +119,13 @@ class JsonPydexer:
 
 
     def get_file(self, key_name, needle):
+        """Get the file with a unique index matching the needle
+        Args:
+            key_name (list): a key_name, formatted the same way as a single element
+            of the key_names list used when calling index()
+            needle (string): your search term
+        Returns: filename
+        """
         key_name = self.key_name_to_tuple(key_name)
         if key_name in self.index_obj.unique_indices:
             return self.index_obj.unique_indices[key_name].get(needle, False)
@@ -113,6 +133,12 @@ class JsonPydexer:
             return ValueError("Error: Invalid Key. Check in group_indices")
 
     def get_files(self, key_name, needle):
+        """Get the files with a non-unique index matching the needle:
+            key_name (list): a key_name, formatted the same way as a single element
+            of the key_names list used when calling index()
+            needle (string): your search term
+        Returns: generator
+        """
         key_name = self.key_name_to_tuple(key_name)
         if key_name in self.index_obj.group_indices:
             for filename in self.index_obj.group_indices[key_name].get(needle, []):
