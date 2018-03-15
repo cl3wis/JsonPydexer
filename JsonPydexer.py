@@ -1,5 +1,5 @@
 __author__ = "Christian Bailey (me@christianbailey.me)"
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 import os
 import json
