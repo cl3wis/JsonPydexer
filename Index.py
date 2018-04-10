@@ -3,6 +3,7 @@ import json
 from functools import reduce
 from operator import getitem
 from pathlib import Path
+from itertools import chain
 
 class Index:
     def __init__(self, key_names, rootPath, filename=None):
@@ -44,7 +45,10 @@ class Index:
             key_names = list(self.unique_indices)
             for key_name in key_names:
                 # get the value in the file that we will index on
-                key = reduce(getitem, key_name, f)
+                try:
+                    key = reduce(getitem, key_name, f)
+                except KeyError:
+                    key = None
 
                 # if we don't already have a filename for this key, add this filename 
                 if not self.unique_indices.get(key_name).get(key, False):
@@ -58,7 +62,10 @@ class Index:
             # check each of the group_indices key names
             for key_name in self.group_indices:
                 # get the value in the file that we will index on
-                key = reduce(getitem, key_name, f)
+                try:
+                    key = reduce(getitem, key_name, f)
+                except KeyError:
+                    key = None
 
                 # if we have already added the key to the group_keys[keyname], just
                 # add our filename to the set for that key. otherwise, we must add
