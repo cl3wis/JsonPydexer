@@ -161,6 +161,7 @@ class PydexerIndex(unittest.TestCase):
         jp.index(["_id"])
         with open(".jp.pkl", "rb") as f:
             index = pickle.load(f)
+            os.remove(".jp.pkl")
             expectedDict = {
                 "5a0a0239b4b70140c8827119": "1.json",
                 None: "2.json",
@@ -169,20 +170,24 @@ class PydexerIndex(unittest.TestCase):
                 "5a0a02399416569dc1f3fedd": "5.json"
             }
             self.assertEqual(index.unique_indices[('_id',)], expectedDict)
-        # test again with nested and nonunique key 
-        jp.index(["foo", "guid"])
+
+
+    def test_index_missing_nested_keys(self):
+        # test with nested and nonunique key
+        jp = JsonPydexer(self.missing_keys_dir)
+        jp.index([["foo", "guid"]])
         with open(".jp.pkl", "rb") as f:
             index = pickle.load(f)
             os.remove(".jp.pkl")
             expectedDict = {
                 ("foo", "guid"): {
-                    "9d634636-c7a3-48d1-9ec7-5fc91e50aaf4": "1.json",
-                    "fa75756f-8fbd-4848-9d2f-5ee9df0f149f": "3.json",
-                    "c11c222d-0f07-4984-b240-a0a4e22ddcf8": "5.json",
+                    "9d634636-c7a3-48d1-9ec7-5fc91e50aaf4": { "1.json" },
+                    "fa75756f-8fbd-4848-9d2f-5ee9df0f149f": { "3.json" },
+                    "c11c222d-0f07-4984-b240-a0a4e22ddcf8": { "5.json" },
                     None: {"2.json", "4.json"}
                 }
             }
-            self.assertEqual(index.group_indices[("foo", "guid")], expectedDict)
+            self.assertEqual(index.group_indices, expectedDict)
 
 
 if __name__ == '__main__':
