@@ -42,8 +42,8 @@ Opening an existing index
     >>>print(filename)
     2.json
 
-Added, removed, or modified JSON files? Update the index
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Added, ~~removed, or modified~~ JSON files? Update the index
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: python
 
@@ -53,3 +53,10 @@ Added, removed, or modified JSON files? Update the index
 New files in the directory will be added to the index. Coming soon are:
 removing files not present in the directory from the index, and checking
 for modified files in the directory.
+
+Current Limitations
+~~~~~~~~~~~~~~~~~~~
+As of 0.3.2, the library is not capable of reliably adding new keys to an
+existing index. Rather, the existing index file (`.jp.pkl` in the directory
+you've initialized JP in) should be deleted, and JP should be initialized
+again with the full list of desired keys.
