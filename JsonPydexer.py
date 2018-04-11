@@ -1,5 +1,5 @@
 __author__ = "Christian Bailey (me@christianbailey.me)"
-__version__ = "0.3.2"
+__version__ = "0.3.3"
 
 import os
 import json
@@ -101,7 +101,7 @@ class JsonPydexer:
         for newfile in newfiles:
             self.index_obj.add(newfile)
 
-        with open(".jp.pkl", mode="wb") as f:
+        with open(Path(self.rootPath, ".jp.pkl"), mode="wb") as f:
             pickle.dump(self.index_obj, f)
 
 
